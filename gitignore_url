@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Libraries available
+CPP_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/C%2B%2B.gitignore"
+PYTHON_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore"
+SCALA_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Scala.gitignore"
+RUBY_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Ruby.gitignore"

@@ -1,13 +1,10 @@
 #!/bin/bash
 
 PACKAGE_NAME="gitignore"
+GITIGNORE_LIST="gitignore_url"
 BUFFER_FILE="$1.gitignore"
 
-# Libraries available
-CPP_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/C%2B%2B.gitignore"
-PYTHON_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore"
-SCALA_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Scala.gitignore"
-RUBY_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Ruby.gitignore"
+source $GITIGNORE_LIST
 
 upper_case() 
 {
