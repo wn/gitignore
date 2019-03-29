@@ -2,9 +2,6 @@
 
 PACKAGE_NAME="gitignore"
 BUFFER_FILE="$1.gitignore"
-
-
-
 HELP_TEXT=$(cat <<-END
 This command will append the gitignore file of the specified language
 from 'https://github.com/github/gitignore' to the end of your .gitignore.
@@ -12,10 +9,10 @@ from 'https://github.com/github/gitignore' to the end of your .gitignore.
 Usage: gitignore [LANGUAGE]
 
 These are the language currently available:
-- cpp
-- python
-- ruby
-- scala
+    - cpp
+    - python
+    - ruby
+    - scala
 END
 )
 
