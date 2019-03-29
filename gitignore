@@ -1,10 +1,29 @@
 #!/bin/bash
 
 PACKAGE_NAME="gitignore"
-GITIGNORE_LIST="gitignore_url"
 BUFFER_FILE="$1.gitignore"
 
-source $GITIGNORE_LIST
+
+
+HELP_TEXT=$(cat <<-END
+This command will append the gitignore file of the specified language
+from 'https://github.com/github/gitignore' to the end of your .gitignore.
+
+Usage: gitignore [LANGUAGE]
+
+These are the language currently available:
+- cpp
+- python
+- ruby
+- scala
+END
+)
+
+# Libraries available
+CPP_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/C%2B%2B.gitignore"
+PYTHON_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore"
+SCALA_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Scala.gitignore"
+RUBY_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Ruby.gitignore"
 
 upper_case() 
 {
@@ -26,7 +45,7 @@ show_guide()
 }
 
 if [[ "$1" == "--help" ]]; then
-  cat help.txt
+  echo "$HELP_TEXT"
   exit 0
 fi
 
