@@ -28,6 +28,12 @@ if [[ "$1" == "--help" ]]; then
   exit 0
 fi
 
+# Check if folder is a git repository
+if [ ! -d .git ]; then
+  echo "You are not in a git repository. Please run 'git init' first.";
+  exit 1
+fi
+
 # Check that there is at least 1 argument
 if [ "$1" == "" ]; then
     echo "$PACKAGE_NAME: Please specify the language to add gitignore!"
