@@ -21,6 +21,8 @@ CPP_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/C%2B%2B.gi
 PYTHON_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore"
 SCALA_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Scala.gitignore"
 RUBY_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Ruby.gitignore"
+RUST_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Rust.gitignore"
+GO_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Go.gitignore"
 
 upper_case() 
 {
