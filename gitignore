@@ -2,6 +2,7 @@
 
 PACKAGE_NAME="gitignore"
 BUFFER_FILE="$1.gitignore"
+GITIGNORE_API="https://gitignore.io/api/"
 HELP_TEXT=$(cat <<-END
 This command will append the gitignore file of the specified language
 from 'https://github.com/github/gitignore' to the end of your .gitignore.
@@ -21,25 +22,48 @@ show_guide()
     echo "Try '$PACKAGE_NAME --help' for help."
 }
 
+# Help command
 if [[ "$1" == "--help" ]]; then
   echo "$HELP_TEXT"
   exit 0
 fi
 
-# Check that there is only 1 argument
+# Check that there is at least 1 argument
 if [ "$1" == "" ]; then
     echo "$PACKAGE_NAME: Please specify the language to add gitignore!"
     show_guide
     exit 1
 fi
 
-IGNORE_URL="https://gitignore.io/api/"
+# Confirm overriding of .gitignore
+if [ -e .gitignore ]; then
+    while [[ "$confirm" != "y" && "$confirm" != "Y" ]]; do
+        read -p ".gitignore already exist! Are you sure you want to override? [y/n] " confirm
+        if [ "$confirm" == "n" ] || [ "$confirm" == "N" ]; then
+            exit 1
+        fi
+    done
+fi
 
-# Get all language
+IGNORE_URL=$GITIGNORE_API
+errors=""
+
+# Get gitignore.io API url
 for var in "$@"
 do
+    header_code=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "$GITIGNORE_API$var")
+    if [ $header_code != 200 ]; then
+        errors="$errors$var "
+    fi
     IGNORE_URL="$IGNORE_URL$var,"
 done
+
+# Check if there are any errors
+if [ "$errors" != "" ]; then
+    echo $errors
+    echo "The following languages are not found: $errors"
+    exit 1
+fi
 
 IGNORE_URL=$(remove_last_char $IGNORE_URL)
 wget -O .gitignore $IGNORE_URL
