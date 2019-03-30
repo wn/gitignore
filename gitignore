@@ -6,32 +6,12 @@ HELP_TEXT=$(cat <<-END
 This command will append the gitignore file of the specified language
 from 'https://github.com/github/gitignore' to the end of your .gitignore.
 
-Usage: gitignore [LANGUAGE]
-
-These are the language currently available:
-    - cpp
-    - python
-    - ruby
-    - scala
+Usage: gitignore [LANGUAGE_1] [LANGUAGE_2] [LANGUAGE_3] ...
 END
 )
 
-# Libraries available
-CPP_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/C%2B%2B.gitignore"
-PYTHON_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore"
-SCALA_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Scala.gitignore"
-RUBY_IGNORE="https://raw.githubusercontent.com/github/gitignore/master/Ruby.gitignore"
-
-upper_case() 
-{
-    echo "$(tr [a-z] [A-Z] <<< "$1")"
-}
-
-get_url() 
-{
-    IGNORE_VAR=`echo $(upper_case $1)_IGNORE`
-    IGNORE_URL="${!IGNORE_VAR}"
-    echo $IGNORE_URL
+remove_last_char() {
+    echo $1 | sed 's/.$//'
 }
 
 show_guide()
@@ -47,26 +27,19 @@ if [[ "$1" == "--help" ]]; then
 fi
 
 # Check that there is only 1 argument
-if [ $# -gt 1 ]; then
-    echo "$PACKAGE_NAME: You should only specify the language!"
-    show_guide
-    exit 1
-elif [ "$1" == "" ]; then
+if [ "$1" == "" ]; then
     echo "$PACKAGE_NAME: Please specify the language to add gitignore!"
     show_guide
     exit 1
 fi
 
-# Check if we have the language
-IGNORE_URL=$(get_url $1)
-if [ ${#IGNORE_URL} == 0 ]; then
-    echo "$PACKAGE_NAME: The language that you input, '$1', is not available."
-    exit 1
-fi
+IGNORE_URL="https://gitignore.io/api/"
 
-wget -O $BUFFER_FILE $IGNORE_URL
-echo "===== $(upper_case $1) =====" >> .gitignore
-cat "$1.gitignore" >> .gitignore
-echo "" >> .gitignore # Add new line to EOF
+# Get all language
+for var in "$@"
+do
+    IGNORE_URL="$IGNORE_URL$var,"
+done
 
-rm "$1.gitignore"
+IGNORE_URL=$(remove_last_char $IGNORE_URL)
+wget -O .gitignore $IGNORE_URL
