@@ -1,6 +1,7 @@
 # gitignore
 
-This repository contains a brew package to automatically generate gitignores of a particular language. This package will append the requested `.gitignore` file to the end of the `.gitignore` file in your project.
+This repository contains a brew package to automatically generate gitignores of a particular language. Enter the languages that you wish to set up gitignore for, and a .gitignore file will be generated. 
+Allows for multiple langauges.
 
 ## Requirements
 
@@ -12,7 +13,7 @@ This repository contains a brew package to automatically generate gitignores of 
 ## Installation
 
 ```bash
-brew tap wn/gitignore
+brew tap wn/homebrew-tap
 brew install gitignore
 ```
 
@@ -23,3 +24,6 @@ brew install gitignore
 gitignore cpp go
 ```
 
+## Credits
+
+- [gitignore.io](gitignore.io)
