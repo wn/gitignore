@@ -6,6 +6,7 @@ This repository contains a brew package to automatically generate gitignores of 
 
 - GNU bash
 - wget
+- cURL
 - [Homebrew](https://brew.sh/)
 
 ## Installation
@@ -18,13 +19,7 @@ brew install gitignore
 ## Usage
 
 ```bash
-# To create .gitignore file for cpp projects
-gitignore cpp
+# To create .gitignore file for cpp and python projects
+gitignore cpp go
 ```
 
-## Available languages
-
-- C++
-- Python
-- Ruby
-- Scala
