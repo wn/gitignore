@@ -28,3 +28,5 @@ gitignore cpp
 - Python
 - Ruby
 - Scala
+- Rust
+- Go
