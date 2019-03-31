@@ -24,6 +24,10 @@ brew install gitignore
 gitignore cpp python
 ```
 
+## Tap
+
+The tap for this project can be found [here](https://github.com/wn/homebrew-tap).
+
 ## Credits
 
 - [gitignore.io](gitignore.io)
