@@ -1,7 +1,6 @@
 #!/bin/bash
 
 PACKAGE_NAME="gitignore"
-BUFFER_FILE="$1.gitignore"
 GITIGNORE_API="https://gitignore.io/api/"
 HELP_TEXT=$(cat <<-END
 This command will append the gitignore file of the specified language
@@ -12,7 +11,8 @@ END
 )
 
 remove_last_char() {
-    echo $1 | sed 's/.$//'
+    # shellcheck disable=SC2001
+    echo "$1" | sed 's/.$//'
 }
 
 show_guide()
@@ -44,7 +44,7 @@ fi
 # Confirm overriding of .gitignore
 if [ -e .gitignore ]; then
     while [[ "$confirm" != "y" && "$confirm" != "Y" ]]; do
-        read -p ".gitignore already exist! Are you sure you want to override? [y/n] " confirm
+        read -p -r ".gitignore already exist! Are you sure you want to override? [y/n] " confirm
         if [ "$confirm" == "n" ] || [ "$confirm" == "N" ]; then
             exit 1
         fi
@@ -58,7 +58,7 @@ errors=""
 for var in "$@"
 do
     header_code=$(curl -o /dev/null --silent --head --write-out '%{http_code}\n' "$GITIGNORE_API$var")
-    if [ $header_code != 200 ]; then
+    if [ "$header_code" != 200 ]; then
         errors="$errors$var "
     fi
     IGNORE_URL="$IGNORE_URL$var,"
@@ -66,10 +66,10 @@ done
 
 # Check if there are any errors
 if [ "$errors" != "" ]; then
-    echo $errors
+    echo "$errors"
     echo "The following languages are not found: $errors"
     exit 1
 fi
 
-IGNORE_URL=$(remove_last_char $IGNORE_URL)
-wget -O .gitignore $IGNORE_URL
+IGNORE_URL=$(remove_last_char "$IGNORE_URL")
+wget -O .gitignore "$IGNORE_URL"
