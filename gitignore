@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PACKAGE_NAME="gitignore"
-GITIGNORE_API="https://gitignore.io/api/"
+GITIGNORE_API="https://www.toptal.com/developers/gitignore/api/"
 HELP_TEXT=$(cat <<-END
 This command will append the gitignore file of the specified language
 from 'https://github.com/github/gitignore' to the end of your .gitignore.
